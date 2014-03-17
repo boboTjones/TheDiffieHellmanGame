@@ -1,0 +1,10 @@
+!!! Transitional
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    = haml :header, :layout => false
+
+  %body
+    .banner
+      = haml :banner, :layout => false
+    .container
+      = yield
