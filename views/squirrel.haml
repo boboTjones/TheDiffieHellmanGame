@@ -1,0 +1,14 @@
+.span-16
+  %p
+    Your shared secret key is
+    %span.red
+      = @you.secret
+      
+  %p 
+    I converted this to a hex digest for you, so write this down as 
+    %ul
+      %li 
+        K =
+        = makehex(@you.secret)
+    
+    

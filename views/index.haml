@@ -1,0 +1,30 @@
+.span-16
+  %p
+    Welcome to the Diffie-Hellman game!
+  %p
+    Today's DH is [31337,3]. This means that 
+    %ul
+      %li p = 31337
+      %li g = 3
+  %p
+    Your private key is:
+    %span.red
+      = @you.privkey.to_s + "."
+  %p
+    This is a randomly generated number. It has no significance and no magic.
+
+  %p 
+    Please write this down as:
+    %ul
+      %li 
+        a =
+        = @you.privkey
+      %li
+        p = 31337
+      %li
+        g = 3
+
+  %p
+    And click
+    %a{:href => "/get_public_key/#{@you.id}"} here
+    to continue.
