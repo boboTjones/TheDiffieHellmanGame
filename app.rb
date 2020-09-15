@@ -1,4 +1,4 @@
-%w[ rubygems sinatra haml base64 sha3 pp data_mapper].each {|x| require x}
+%w[ rubygems data_mapper sinatra haml base64 sha3 pp].each {|x| require x}
 
 load 'backend.rb'
 
@@ -18,8 +18,9 @@ end
 
 before do
     if request.path == "/"
-        @you = You.new(:privkey => generate_private_key, :pubkey => "")
-        @you.save!
+      @you = You.new(:privkey => generate_private_key, :pubkey => 0)
+      @you.save!
+      pp "Hello user number #{@you.id}"
     end
     @g = 3
     @p = 31337
@@ -31,7 +32,7 @@ end
 
 get "/get_public_key/:id" do
     @you = You.get params[:id]
-    @you.update_attributes(:pubkey => generate_public_key(@you.privkey))
+    @you.update(:pubkey => generate_public_key(@you.privkey))
     haml :moose
 end
 
@@ -39,7 +40,7 @@ post "/generate_secret_key/:id" do
     @you = You.get params[:id]
     sk = generate_secret_key(params[:dc].to_i, @you.privkey)
     pp sk
-    @you.update_attributes(:secret => sk)
+    @you.update(:secret => sk)
     pp @you.secret
     redirect "/get_secret_key/#{@you.id}"
 end
